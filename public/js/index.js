@@ -8,10 +8,23 @@
        console.log("Disconnected from server!")
      });
 
-     socket.on("newMessage", function (newMessage) {
-       console.log("Client creating a new message: ", newMessage);
+     socket.on("newMessage", function (message) {
+       console.log("new message: ", message);
+       var li = jQuery("<li></li>");
+       li.text(`${message.from}: ${message.text}`);
+       jQuery("#messages").append(li)
      });
 
      socket.on("userJoin", function (user) {
        console.log("New user joined: ", user)
-     })
+     });
+
+     jQuery("#message-form").on("submit", function(e) {
+         e.preventDefault();
+
+         socket.emit("createMessage", {
+           from: "User",
+           text: jQuery("[name=message]").val()
+         }, function(){
+         });
+     });
