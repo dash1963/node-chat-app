@@ -11,3 +11,7 @@
      socket.on("newMessage", function (newMessage) {
        console.log("Client creating a new message: ", newMessage);
      });
+
+     socket.on("userJoin", function (user) {
+       console.log("New user joined: ", user)
+     })
