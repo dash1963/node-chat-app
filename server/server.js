@@ -2,7 +2,7 @@ const express  = require("express");
 const path     = require("path");
 const http     = require("http");
 const socketIO = require("socket.io");
-const {generateMessage} = require("./utils/message");
+const {generateMessage, generateLocationMessage} = require("./utils/message");
 
 
 const port = process.env.PORT || 3000;
@@ -25,15 +25,13 @@ socket.on("createMessage", (message, callback) => {
   console.log("Server Creating a new message: ", message);
   io.emit("newMessage", generateMessage(message.from, message.text));
   callback("This is from the server");
-
-  // socket.broadcast.emit("newMessage", {
-  //   from: message.from,
-  //   text: message.text,
-  //   createdat: new Date().getTime()
-  // });
-
 });
 
+socket.on("createLocationMessage", (coords) => {
+  io.emit("newLocationMessage", generateLocationMessage("Admin",
+                                                coords.latitude,
+                                                coords.longitude ));
+});
 
   socket.on("disconnect", () => {
   console.log("User disconnected")
