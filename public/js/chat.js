@@ -28,9 +28,7 @@
           console.log("No error")
         }
       });
-
        console.log("Connected to server");
-
      });
 
      socket.on("disconnect", function() {
@@ -64,7 +62,7 @@
 
      socket.on("newLocationMessage", function(message) {
        var formattedTime = moment(message.cratedAt).format("hh:mm a");
-       var template = jQuery("location-message-template").html();
+       var template = jQuery("#location-message-template").html();
        var html = Mustache.render(template, {
          from: message.from,
          url: message.url,
@@ -74,13 +72,11 @@
        scrollToBottom();
      });
 
-
      var messageTextBox = jQuery("[name=message]");
      jQuery("#message-form").on("submit", function(e) {
          e.preventDefault();
 
          socket.emit("createMessage", {
-           from: "User",
            text: messageTextBox.val()
          }, function(){
             messageTextBox.val("")
@@ -91,7 +87,7 @@
   locationButton.on("click", function(){
     if (!navigator.geolocation) {
        return alert("Geolocation not suppoerted by your browser");
-    }
+    };
 
     locationButton.attr("disabled", 'disabled').text("Sending location...");
 
