@@ -1,0 +1,17 @@
+Always move to directory where the application will live and do the following:
+npm init
+git init
+
+----------------------
+
+git status
+git add [module name or kust a "." if everything needs to be included]
+git commit -m "explanation message"
+git push
+git push heroku master
+
+
+
+npm test  (when testing)
+
+
